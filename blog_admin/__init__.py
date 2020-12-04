@@ -1,9 +1,16 @@
 from flask import Flask
+from instance.config import app_config
 
-def create_admin_app():
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
+
+def create_admin_app(config_name):
+    print("Initiating admin app for blogging...")
     # More on DB init here...
     ''' Create Flask app '''
-    app = Flask(__name__)
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_object(app_config[config_name])
+    app.config.from_pyfile('config.py')
 
     with app.app_context():
         # Module imports

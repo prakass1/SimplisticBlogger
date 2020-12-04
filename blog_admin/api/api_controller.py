@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for
+from flask import Blueprint, redirect, url_for, request
 
 api_bp = Blueprint("api", __name__)
 
