@@ -1,5 +1,4 @@
 from blog import create_app
-from blog_admin import create_admin_app
 
 app = create_app()
 
