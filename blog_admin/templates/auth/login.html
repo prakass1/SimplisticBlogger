@@ -51,7 +51,7 @@
     <div class="login-form">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <div class="notification is-danger">
+        <div class="alert alert-danger">
             {{ messages[0] }}.
         </div>
         {% endif %}

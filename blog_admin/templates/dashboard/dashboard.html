@@ -53,7 +53,6 @@
 </head>
 
 <body>
-
   <nav class="navbar navbar-light bg-light p-3">
     <div class="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
       <a class="navbar-brand" href="#">
@@ -70,12 +69,12 @@
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
         aria-expanded="false">
-        Hello, User
+        Hello, {{user.user_name}}
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li><a class="dropdown-item" href="#">Settings</a></li>
         <li><a class="dropdown-item" href="#">Messages</a></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
+        <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Sign out</a></li>
       </ul>
     </div>
     </div>

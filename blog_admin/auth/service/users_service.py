@@ -5,11 +5,15 @@ import traceback
 
 
 class UserService:
-    def create_user(self, user_name, password, f_name, l_name="", is_active=False):
+
+    def __init__(self):
+        pass
+
+    def create_user(self, user_name, password, f_name, l_name="", changed_pass=False):
         try: 
             user = Users(user_name=user_name, 
             password=password, 
-            is_active=is_active,
+            changed_pass=changed_pass,
             f_name=f_name,
             l_name=l_name)
             db.session.add(user)
@@ -25,5 +29,6 @@ class UserService:
             return -1
         else:
             return result
+
     
 

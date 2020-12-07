@@ -33,7 +33,6 @@ def create_admin_app(config_name):
 
     with app.app_context():
         from blog_admin.auth.service.users_service import UserService
-        from blog_admin.auth.model.users_model import Users
         
         db.create_all()
 
