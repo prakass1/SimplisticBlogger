@@ -55,7 +55,7 @@
 <body>
   <nav class="navbar navbar-light bg-light p-3">
     <div class="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="{{url_for('auth.dashboard')}}">
         Blog Dashboard
       </a>
       <button class="navbar-toggler d-md-none collapsed mb-3" type="button" data-toggle="collapse"
@@ -86,7 +86,7 @@
         <div class="position-sticky pt-md-5">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
+              <a class="nav-link active" aria-current="page" href="{{url_for('posts.dash_overview')}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                   class="feather feather-home">
@@ -97,7 +97,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="{{url_for('posts.dash_posts')}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                   class="feather feather-file">
@@ -110,9 +110,9 @@
           </ul>
         </div>
       </nav>
-      <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-        <h1 class="h2">Dashboard Overview</h1>
-      </main>
+      {% block content %}
+      {% endblock %}
+
     </div>
   </div>
 

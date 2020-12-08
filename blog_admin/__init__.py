@@ -1,13 +1,12 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv, find_dotenv
 from instance.config import app_config
 from flask_login import LoginManager
+from common import  db
 
 
-db = SQLAlchemy()
 login_manager = LoginManager()
 
 username = environ.get("ADMIN_USERNAME")
@@ -32,7 +31,7 @@ def create_admin_app(config_name):
     login_manager.init_app(app)
 
     with app.app_context():
-        from blog_admin.auth.service.users_service import UserService
+        from common.services.users_service import UserService
         
         db.create_all()
 
@@ -52,9 +51,11 @@ def create_admin_app(config_name):
         # Module imports
         from blog_admin.api import api_controller
         from blog_admin.auth import auth_controller
+        from blog_admin.posts import posts_controller
 
         # Register blueprints
         app.register_blueprint(api_controller.api_bp)
         app.register_blueprint(auth_controller.auth_bp, url_prefix="/admin")
+        app.register_blueprint(posts_controller.posts_bp, url_prefix="/admin")
 
     return app

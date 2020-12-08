@@ -3,8 +3,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, login_required,current_user
 from urllib import parse
 from blog_admin import db
-from blog_admin.auth.model.users_model import Users
-from blog_admin.auth.service.users_service import UserService
+from common.models.users_model import Users
+from common.services.users_service import UserService
 
 api_bp = Blueprint("api", __name__)
 
@@ -33,8 +33,7 @@ def login():
         flash("Looks like the provided login credentials are not correct !!!. Please login again")
         return redirect(url_for("auth.admin"))
     # Login the user into flask-login
-    bool_val = login_user(user)
-    print(bool_val)
+    login_user(user)
     
     if not is_safe_url(next_link):
         return abort(400)
