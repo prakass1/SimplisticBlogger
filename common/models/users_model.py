@@ -1,7 +1,7 @@
-from blog_admin import db
+from common import db
 from flask_login import UserMixin
 from blog_admin import login_manager
-
+from common.models.posts_model import Posts
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -16,6 +16,7 @@ class Users(UserMixin, db.Model):
     changed_pass = db.Column(db.Boolean(), nullable=False, default=False)
     f_name = db.Column(db.String(255), nullable=False)
     l_name = db.Column(db.String(255), nullable=True)
+    posts = db.relationship("Posts", backref="users", lazy=True)
 
     def __repr__(self):
         return "<User %r>" % self.user_name

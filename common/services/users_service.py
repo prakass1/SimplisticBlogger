@@ -1,5 +1,5 @@
 from common.models.users_model import Users
-from blog_admin import db
+from common import db
 from sqlalchemy import exc
 import traceback
 

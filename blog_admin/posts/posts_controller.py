@@ -12,3 +12,8 @@ def dash_overview():
 @login_required
 def dash_posts():
     return render_template("dashboard/posts.html", user=current_user)
+
+@posts_bp.route("/add_post")
+@login_required
+def add_post():
+    return render_template("dashboard/add_post.html", user=current_user)
