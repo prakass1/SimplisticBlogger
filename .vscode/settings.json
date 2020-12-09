@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "g:\\VScode_projects\\SimplisticBlogger\\SimplisticBlogger\\.venv\\Scripts\\python.exe"
+    "python.pythonPath": "g:\\VScode_projects\\SimplisticBlogger\\SimplisticBlogger\\.venv\\Scripts\\python.exe",
+    "python.formatting.provider": "autopep8"
 }
