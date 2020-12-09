@@ -6,7 +6,6 @@ from instance.config import app_config
 from flask_login import LoginManager
 from common import  db
 
-
 login_manager = LoginManager()
 
 username = environ.get("ADMIN_USERNAME")

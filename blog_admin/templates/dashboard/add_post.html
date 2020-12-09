@@ -1,22 +1,23 @@
 {% extends "dashboard/dashboard.html" %}
 {% block content %}
 <main id="add-posts" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-    <form id="add-form-post" action="" method="">
-        <div class="form-group">
-          <label for="titleFormInput">Title</label>
-          <input type="text" class="form-control" id="titleFormInput" placeholder="Why Sun rises in the East?">
-        </div>
-        <div class="form-group">
-          <label for="bodyFormInput">Content</label>
-          <textarea class="form-control" id="bodyFormInput" rows="3"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="authorFormInput">Author</label>
-            <input type="text" class="form-control" id="authorFormInput" value="{{user.f_name}}" disabled>
-          </div>
-        <div class="form-group col-1">
-            <button type="submit" class="btn btn-primary btn-block">Post It</button>
-        </div>
-      </form>
+  <div class="alert alert-danger" role="alert" id="log"></div>
+  <form id="add-form-post" action="" method="">
+    <div class="form-group">
+      <label for="titleFormInput">Title</label>
+      <input type="text" class="form-control" id="titleFormInput" placeholder="Why Sun rises in the East?" required>
+    </div>
+    <div class="form-group">
+      <label for="bodyFormInput">Content</label>
+      <textarea class="form-control" id="summernote" name="editordata"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="authorFormInput">Author</label>
+      <input type="text" class="form-control" id="authorFormInput" value="{{user.f_name}}" disabled>
+    </div>
+    <div class="form-group col-1">
+      <button type="submit" class="btn btn-primary btn-block">Post It</button>
+    </div>
+  </form>
 </main>
 {% endblock %}
