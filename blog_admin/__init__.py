@@ -5,8 +5,10 @@ from dotenv import load_dotenv, find_dotenv
 from instance.config import app_config
 from flask_login import LoginManager
 from common import  db
+from flask_wtf.csrf import CSRFProtect
 
 login_manager = LoginManager()
+csrf_protect = CSRFProtect()
 
 username = environ.get("ADMIN_USERNAME")
 password = environ.get("PASSWORD")
@@ -24,6 +26,8 @@ def create_admin_app(config_name):
     app.config.from_pyfile('config.py')
     # init sql-alchemy
     db.init_app(app)
+    # init csrf
+    csrf_protect.init_app(app)
 
     # Set the login manager
     login_manager.login_view = 'auth.admin'

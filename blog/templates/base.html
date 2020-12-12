@@ -24,14 +24,51 @@
     <!-- Custom styles for this template -->
     <link href="../static/css/clean-blog.min.css" rel="stylesheet">
 
+    <style>
+        .newhead {
+        margin-bottom: 5px;
+        background: no-repeat center center;
+        /*background-color: #868e96;*/
+        background-color: #DCDCDC;
+        background-attachment: scroll;
+        position: relative;
+        background-size: cover;
+        }
+
+        header.newhead .page-heading, header.newhead .site-heading {
+        text-align: center;
+        }
+
+        @media only screen and (min-width: 768px){
+        header.newhead .page-heading, header.newhead .post-heading, header.newhead .site-heading {
+        padding: 80px 0;
+        }}
+
+        header.newhead .page-heading, header.newhead .post-heading, header.newhead .site-heading {
+        padding: 150px 0 150px;
+        color:#2e242c;
+        /*color: #fff; */
+        }
+
+        @media only screen and (min-width: 768px){
+        header.newhead .page-heading h1, header.newhead .site-heading h1 {
+        font-size: 80px;
+        }}
+
+        header.newhead .page-heading h1, header.newhead .site-heading h1 {
+        font-size: 50px;
+        margin-top: 0;
+        }    
+
+    </style>
 </head>
 
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('posts.index') }}">Start Bootstrap</a>
+            <a class="navbar-brand" href="{{ url_for('posts.blog') }}">Start Bootstrap</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -41,7 +78,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('posts.index') }}">Home</a>
+                        <a class="nav-link" href="{{ url_for('posts.blog') }}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('about.about') }}">About</a>

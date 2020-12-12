@@ -7,5 +7,7 @@ class Posts(db.Model):
     content = db.Column(db.Text)
     posted_date = db.Column(db.DateTime)
     title = db.Column(db.String(255))
-    user_id = db.Column(db.Integer,db.ForeignKey("users.id"), nullable=False)
+    author = db.Column(db.String(255))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    modified_flag = db.Column(db.Boolean, default=False)
     images = db.relationship("Images", backref="posts", lazy=True)

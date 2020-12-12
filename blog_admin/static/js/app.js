@@ -1,3 +1,5 @@
+import {add_post, edit_post} from './posts_app.js';
+
 $(document).ready(function(){
     $("#log").hide();
     $("#posts-dtable").DataTable();
@@ -20,11 +22,17 @@ $(document).ready(function(){
         callbacks: {
             onImageUpload: function(image){
                 uploadImage(image[0]);
+            },
+
+            onMediaDelete: function(file){
+                console.log("Filename to be deleted -- ", file[0].src);
+                deleteImage(file[0].src);
             }
         }
       });
     
     function uploadImage(image){
+        var csrftoken = $('meta[name=csrf-token]').attr('content');
         //Upload image via ajax
         $("#log").empty();
         $("#log").hide();
@@ -34,7 +42,7 @@ $(document).ready(function(){
         //console.log(blog_title);
         //data = JSON.stringify({"image":image, "blog_title":blog_title});
         data.append("image", image);
-        data.append("blog_title", blog_title);
+       // data.append("blog_title", blog_title);
         $.ajax({
             url: "/image_upload",
             cache: false,
@@ -42,12 +50,18 @@ $(document).ready(function(){
             processData: false,
             data: data,
             type: "POST",
-            beforeSend: function(){
+            beforeSend: function(xhr, settings){
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                }
+
                 if (blog_title === ""){
                     $("#log").append("The title of the blog cannot be empty before uploading an image !!");
                     $("#log").show();
                     this.abort();
                 }
+
+
             },
             success: function(filename)
             {
@@ -66,5 +80,71 @@ $(document).ready(function(){
         });
     }
 
-//End of document      
+
+    function deleteImage(image){
+        var csrftoken = $('meta[name=csrf-token]').attr('content');
+        //Upload image via ajax
+        $("#log").empty();
+        $("#log").hide();
+        $.ajax({
+            url: "/image_delete",
+            cache: false,
+            processData: false,
+            contentType: "application/json",
+            data: JSON.stringify({"image_file":image}),
+            type: "POST",
+
+            beforeSend: function(xhr, settings){
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                }
+            },
+            success: function(resp)
+            {
+                $("#log").empty();
+                $("#log").append(resp);
+                $("#log").show();
+            },
+            error: function(resp){
+                console.log(resp);
+                $("#log").empty();
+                $("#log").append(resp);
+                $("#log").show();
+            }
+        });
+    }
+
+    //Add a post to the database
+    $("#add-form-post").submit(function(e){
+        e.preventDefault();
+        $("#log").hide();
+        var blog_title = $("#titleFormInput").val();
+        var blog_author = $("#authorFormInput").val();
+        var blog_content = $('#summernote').summernote('code');
+        add_post(blog_title, blog_author, blog_content);
+    });
+
+    //Edit the post and make changes
+    $("#edit-form-post").submit(function(e){
+        e.preventDefault();
+        $("#log").hide();
+        var blog_title = $("#edit_form_title").val();
+        var old_title = $("#edit_form_old_title").val();
+        var blog_content = $('#summernote').summernote('code');
+        edit_post(blog_title, blog_content, old_title);
+    });
+
+
+    /*
+    //delete the post
+    $("#delete-blogpost").on("click", function(e){
+        e.preventDefault();
+        $("#log").hide();
+        var blog_title = $("#post_id").text();
+        delete_post(blog_title);
+    });
+    */
+
+//End of document
+
 });

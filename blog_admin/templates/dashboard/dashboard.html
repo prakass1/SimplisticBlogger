@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"
     crossorigin="anonymous">
 
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <title>Simplistic Blogger Admin</title>
   <style>
     .sidebar {
@@ -145,7 +147,7 @@
   <!-- Datatable js loading-->
   <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
   <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-  <script src="../../static/js/app.js" crossorigin="anonymous"></script>
+  <script type="module" src="../../static/js/app.js" crossorigin="anonymous"></script>
 
   <!-- Summernote css/js -->
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">

@@ -53,13 +53,14 @@
                 <input type="text" class="form-control" placeholder="Username" required="required">
             </div>-->
             <div class="form-group">
-                <input type="password" class="form-control" name="old-password" placeholder="Old Password" required="required">
+                <input type="password" class="form-control" name="old-password" placeholder="Old Password" required="required" />
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" name="new-password" placeholder="New Password" required="required">
+                <input type="password" class="form-control" name="new-password" placeholder="New Password" required="required" />
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
             </div>
         </form>
     </div>

@@ -1,8 +1,8 @@
 {% extends "dashboard/dashboard.html" %}
 {% block content %}
 <main id="add-posts" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-  <div class="alert alert-danger" role="alert" id="log"></div>
-  <form id="add-form-post" action="" method="">
+  <div style="display:none;" class="alert alert-danger" role="alert" id="log" ></div>
+  <form id="add-form-post" method="POST">
     <div class="form-group">
       <label for="titleFormInput">Title</label>
       <input type="text" class="form-control" id="titleFormInput" placeholder="Why Sun rises in the East?" required>
@@ -17,6 +17,7 @@
     </div>
     <div class="form-group col-1">
       <button type="submit" class="btn btn-primary btn-block">Post It</button>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     </div>
   </form>
 </main>

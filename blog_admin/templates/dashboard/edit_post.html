@@ -1,0 +1,21 @@
+{% extends "dashboard/dashboard.html" %}
+{% block content %}
+<main id="edit-posts" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+  <div style="display:none;" class="alert alert-danger" role="alert" id="log" ></div>
+  <form id="edit-form-post" method="PUT">
+    <div class="form-group">
+      <label for="titleFormInput">Title</label>
+      <input type="text" class="form-control" id="edit_form_title" value= "{{ post.title }}" required>
+      <input type="hidden" class="form-control" id="edit_form_old_title" value= "{{ post.title }}" required>
+    </div>
+    <div class="form-group">
+      <label for="bodyFormInput">Content</label>
+      <textarea class="form-control" id="summernote" name="editordata">{{ post.content }}</textarea>
+    </div>
+    <div class="form-group col-1">
+      <button type="submit" class="btn btn-primary btn-block">Edit</button>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    </div>
+  </form>
+</main>
+{% endblock %}

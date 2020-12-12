@@ -7,13 +7,15 @@ def create_app():
 
     with app.app_context():
         # Module imports
-        from .about import about_controller
-        from .contact import contact_controller
-        from .posts import posts_controller
+        from blog.api import api_controller
+        from blog.about import about_controller
+        from blog.contact import contact_controller
+        from blog.posts import posts_controller
 
         # Register blueprints
+        app.register_blueprint(api_controller.api_bp)
         app.register_blueprint(about_controller.about_bp)
         app.register_blueprint(contact_controller.contact_bp)
-        app.register_blueprint(posts_controller.posts_bp)
+        app.register_blueprint(posts_controller.posts_bp, url_prefix="/blog")
 
     return app
