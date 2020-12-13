@@ -6,6 +6,18 @@ from instance.config import app_config
 
 load_dotenv(find_dotenv())
 
+blog_header = environ.get("blog_header")
+blog_subheader = environ.get("blog_subheader")
+social_git = "#" if environ.get(
+    "social_git") == "" else environ.get("social_git")
+social_linkedin = "#" if environ.get(
+    "social_linkedin") == "" else environ.get("social_linkedin")
+social_stack = "#" if environ.get(
+    "social_stack") == "" else environ.get("social_stack")
+
+resp = resp = {"blog_header": blog_header, "blog_subheader": blog_subheader,
+            "social_git": social_git, "social_linkedin": social_linkedin, "social_stack": social_stack}
+
 def create_app(config_name):
     # More on DB init here...
     ''' Create Flask app '''
