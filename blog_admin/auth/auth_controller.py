@@ -6,7 +6,7 @@ auth_bp = Blueprint("auth", __name__)
 @auth_bp.route("/", methods=["GET"])
 def admin():
     if current_user.is_authenticated:
-        return redirect(url_for("auth.dashboard"))
+        return redirect(url_for("posts.dash_posts"))
 
     return render_template("auth/login.html")
 
@@ -14,15 +14,15 @@ def admin():
 @login_required
 def intrim_login():
     if current_user.changed_pass:
-        return redirect(url_for("auth.dashboard"))
+        return redirect(url_for("posts.dash_posts"))
 
     return render_template("auth/login_intrim.html", user = current_user)
-    
 
 @auth_bp.route("/dashboard", methods=["GET"])
 @login_required
 def dashboard():
-    return render_template("dashboard/dashboard.html", user = current_user)
+    return render_template("dashboard/dashboard.html", user=current_user)
+
 
 
 @auth_bp.route("/logout")

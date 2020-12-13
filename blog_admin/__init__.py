@@ -55,10 +55,14 @@ def create_admin_app(config_name):
         from blog_admin.api import api_controller
         from blog_admin.auth import auth_controller
         from blog_admin.posts import posts_controller
+        from common.controller import posts_api_controller
+        from common.controller import images_api_controller
 
         # Register blueprints
         app.register_blueprint(api_controller.api_bp)
         app.register_blueprint(auth_controller.auth_bp, url_prefix="/admin")
         app.register_blueprint(posts_controller.posts_bp, url_prefix="/admin")
+        app.register_blueprint(posts_api_controller.posts_api_bp, url_prefix="/api")
+        app.register_blueprint(images_api_controller.image_bp)
 
     return app

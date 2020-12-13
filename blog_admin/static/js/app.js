@@ -1,4 +1,4 @@
-import {add_post, edit_post} from './posts_app.js';
+import {add_post, delete_post, edit_post} from './posts_app.js';
 
 $(document).ready(function(){
     $("#log").hide();
@@ -135,15 +135,14 @@ $(document).ready(function(){
     });
 
 
-    /*
     //delete the post
-    $("#delete-blogpost").on("click", function(e){
+    $("#posts-dtable").on("click", ".delete-blogpost", function(e){
         e.preventDefault();
+        var closest_tr = $(this).closest("tr");
         $("#log").hide();
         var blog_title = $("#post_id").text();
-        delete_post(blog_title);
+        delete_post(blog_title, closest_tr);
     });
-    */
 
 //End of document
 

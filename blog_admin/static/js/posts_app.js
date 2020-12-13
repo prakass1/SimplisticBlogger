@@ -13,7 +13,7 @@ function add_post(blog_title, blog_author, blog_content) {
     //data.append("blog_content", blog_content)
     var csrftoken = $('meta[name=csrf-token]').attr('content');
     $.ajax({
-        url: "/admin/post",
+        url: "/api/post",
         cache: false,
         contentType: "application/json",
         processData: false,
@@ -26,7 +26,7 @@ function add_post(blog_title, blog_author, blog_content) {
 
             if (blog_title === "") {
                 $("#log").append("The title of the blog cannot be empty before uploading an image !!");
-                $("#log").show();
+                $("#log").show().fadeOut(3000, "linear");
                 this.abort();
             }
 
@@ -41,7 +41,7 @@ function add_post(blog_title, blog_author, blog_content) {
             console.log(data);
             $("#log").empty();
             $("#log").append(data);
-            $("#log").show();
+            $("#log").show().fadeOut(3000,"linear");
         }
     });
 }
@@ -51,8 +51,8 @@ function view_post() {
 
 }
 
-/*
-function delete_post(blog_title) {
+
+function delete_post(blog_title, closest_tr) {
     //Upload image via ajax
     $("#log").empty();
     $("#log").hide();
@@ -63,7 +63,7 @@ function delete_post(blog_title) {
 
     var csrftoken = $('meta[name=csrf-token]').attr('content');
     $.ajax({
-        url: "/admin/post",
+        url: "/api/post",
         cache: false,
         contentType: "application/json",
         processData: false,
@@ -74,28 +74,23 @@ function delete_post(blog_title) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken)
             }
 
-            if (blog_title === "") {
-                $("#log").append("The title of the blog cannot be empty !!");
-                $("#log").show();
-                //this.abort();
-            }
-
         },
         success: function (response) {
+            closest_tr.remove();
             $("#log").empty();
             $("#log").append(response);
-            $("#log").show();
+            $("#log").show().fadeOut(3000,"linear");
         },
         error: function (data) {
             console.log(data);
             $("#log").empty();
             $("#log").append(data);
-            $("#log").show();
+            $("#log").show().fadeOut(3000,"linear");
         }
     });
 
 }
-*/
+
 
 function edit_post(blog_title, blog_content, old_title) {
     //Upload image via ajax
@@ -110,7 +105,7 @@ function edit_post(blog_title, blog_content, old_title) {
 
     var csrftoken = $('meta[name=csrf-token]').attr('content');
     $.ajax({
-        url: "/admin/post",
+        url: "/api/post",
         cache: false,
         contentType: "application/json",
         processData: false,
@@ -144,4 +139,4 @@ function edit_post(blog_title, blog_content, old_title) {
 }
 
 //Export functions to be imported in main wrapper
-export { add_post, view_post, edit_post };
+export { add_post, delete_post, view_post, edit_post };
