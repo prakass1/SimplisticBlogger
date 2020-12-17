@@ -4,7 +4,7 @@ from sqlalchemy import exc
 from common import db
 from common.models import posts_model
 from common.models import images_model
-import datetime
+from blog import cache
 
 class PostService(object):
     def __init__(self):
@@ -64,11 +64,22 @@ class PostService(object):
         return post_count
     
     @classmethod
-    def get_all_posts(cls):
-        posts = posts_model.Posts.query.all()
+    @cache.cached(timeout=50, key_prefix="all-posts")
+    def get_all_posts(cls, order_by=False):
+        if order_by:
+            posts = posts_model.Posts.query.order_by(posts_model.Posts.posted_date.desc()).all()
+        else:
+            posts = posts_model.Posts.query.all()
         return posts
     
     @classmethod
     def get_post_by_title(cls, post_title):
-        post = posts_model.Posts.query.filter_by(title = post_title).first()
+        if cache.get(post_title):
+            print("Retreiving from cache")
+            post = cache.get(post_title)
+        else:
+            print("Not yet cached, caching the current post details")
+            post = posts_model.Posts.query.filter_by(title = post_title).first()
+            cache.set(post_title, post, timeout=50)
+
         return post

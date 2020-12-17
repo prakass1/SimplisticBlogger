@@ -18,11 +18,11 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="display-posts">
       {% if posts_data %}
         {% for post in posts_data %}
-          <hr>
           <div class="post-preview">
-          <a href=" {{ url_for('posts.get_post_title', blog_title=post.title) }} ">
+          <a href="{{ url_for('posts.get_post_title', blog_title=post.title) }}">
             <h2 class="post-title">
              {{ post.title }}
             </h2>
@@ -37,8 +37,12 @@
       <h3> No posts to show yet.</h3>
       {% endif %}
       <hr>
+    </div>
         <!-- Pager -->
+        {% if post_len|int >= prev_limit|int %}
         <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+          <button class="btn btn-primary float-right" id="load_more">Older Posts &rarr;</button>
+          <input type="hidden" name="prev_limit" id="prev_limit" value="{{ prev_limit }}" >
         </div>
+        {% endif %}
 {% endblock %}

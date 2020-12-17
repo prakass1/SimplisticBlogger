@@ -6,4 +6,4 @@ admin_app = create_admin_app(config_name)
 
 
 if __name__ == '__main__':
-    admin_app.run(host="0.0.0.0", port=9001)
+    admin_app.run(host=str(environ.get("FLASK_HOST")), port=str(environ.get("FLASK_ADMIN_PORT")))

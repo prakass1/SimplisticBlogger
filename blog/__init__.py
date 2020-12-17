@@ -3,7 +3,7 @@ from common import db
 from os import environ
 from dotenv import load_dotenv, find_dotenv
 from instance.config import app_config
-
+from flask_caching import Cache
 load_dotenv(find_dotenv())
 
 blog_header = environ.get("blog_header")
@@ -18,6 +18,9 @@ social_stack = "#" if environ.get(
 resp = resp = {"blog_header": blog_header, "blog_subheader": blog_subheader,
             "social_git": social_git, "social_linkedin": social_linkedin, "social_stack": social_stack}
 
+# init cache class
+cache = Cache()
+
 def create_app(config_name):
     # More on DB init here...
     ''' Create Flask app '''
@@ -26,6 +29,8 @@ def create_app(config_name):
     app.config.from_pyfile('config.py')
     # init sql-alchemy
     db.init_app(app)
+    # init cache to app
+    cache.init_app(app)
     
     with app.app_context():
         # Module imports
@@ -35,6 +40,9 @@ def create_app(config_name):
         from blog.posts import posts_controller
         from common.controller import posts_api_controller
         from common.controller import images_api_controller
+
+        # Clear cache
+        cache.clear()
 
         # Register blueprints
         app.register_blueprint(api_controller.api_bp)
