@@ -8,8 +8,14 @@ $(document).ready(function(){
     });
 
     function success_state(data_response){
-        $(".clearfix").remove();
         $(".display-posts").append(data_response.posts_html_reponse);
+        if (data_response.prev_limit > data_response.post_len){
+            $(".clearfix").remove();
+        }
+        else{
+            $("input[name=prev_limit]").val(data_response.prev_limit);
+        }
+
     }
 
     function load_more(prev_limit){
@@ -25,7 +31,6 @@ $(document).ready(function(){
                     //Load the content of the post.
                     localStorage.setItem("response", data_response);
                     success_state(data_response);
-
                 }
             },
             error: function(data_response){
@@ -42,5 +47,5 @@ $(document).ready(function(){
         success_state(response);
     }
 
-// End of file    
+// End of file
 });

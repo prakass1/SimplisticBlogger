@@ -30,7 +30,14 @@ $(document).ready(function(){
             }
         }
       });
-    
+
+    // Loading data-tag
+    $('input[name="categoryFormInput"]').amsifySuggestags({
+        tagLimit: 4,
+        trimValue: true,
+        dashSpaces: true
+	});
+
     function uploadImage(image){
         var csrftoken = $('meta[name=csrf-token]').attr('content');
         //Upload image via ajax
@@ -115,23 +122,26 @@ $(document).ready(function(){
     }
 
     //Add a post to the database
-    $("#add-form-post").submit(function(e){
+    $("#add-form-post").on("submit", function(e){
         e.preventDefault();
         $("#log").hide();
         var blog_title = $("#titleFormInput").val();
         var blog_author = $("#authorFormInput").val();
         var blog_content = $('#summernote').summernote('code');
-        add_post(blog_title, blog_author, blog_content);
+        var blog_tags = $("span.amsify-select-tag").get_items("items");
+
+        add_post(blog_title, blog_author, blog_content, blog_tags);
     });
 
     //Edit the post and make changes
-    $("#edit-form-post").submit(function(e){
+    $("#edit-form-post").on("submit",function(e){
         e.preventDefault();
         $("#log").hide();
         var blog_title = $("#edit_form_title").val();
         var old_title = $("#edit_form_old_title").val();
         var blog_content = $('#summernote').summernote('code');
-        edit_post(blog_title, blog_content, old_title);
+        var blog_tags = $("span.amsify-select-tag").get_items("items");
+        edit_post(blog_title, blog_content, old_title, blog_tags);
     });
 
 

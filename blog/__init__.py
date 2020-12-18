@@ -1,9 +1,9 @@
 from flask import Flask
-from common import db
+from common import db, cache
 from os import environ
 from dotenv import load_dotenv, find_dotenv
 from instance.config import app_config
-from flask_caching import Cache
+
 load_dotenv(find_dotenv())
 
 blog_header = environ.get("blog_header")
@@ -18,8 +18,6 @@ social_stack = "#" if environ.get(
 resp = resp = {"blog_header": blog_header, "blog_subheader": blog_subheader,
             "social_git": social_git, "social_linkedin": social_linkedin, "social_stack": social_stack}
 
-# init cache class
-cache = Cache()
 
 def create_app(config_name):
     # More on DB init here...

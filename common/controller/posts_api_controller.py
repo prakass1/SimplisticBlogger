@@ -14,6 +14,10 @@ def add():
     blog_title = request_body["blog_title"]
     blog_content = request_body["blog_content"]
     blog_author = request_body["blog_author"]
+    blog_tags_list = request_body["blog_tags"]
+
+    if len(blog_tags_list) == 0:
+        blog_tags_list.append("uncategorized")
 
     # Parse the image url and store it for the purposes of logging
     html_parsed = BeautifulSoup(blog_content, "html.parser")
@@ -22,7 +26,7 @@ def add():
 
     # Call the post service to add the post
     p_service_obj = posts_service.PostService()
-    rc = p_service_obj.add_post(blog_title, blog_author, blog_content, current_user, img_list)
+    rc = p_service_obj.add_post(blog_title, blog_author, blog_content, current_user, img_list, blog_tags_list)
     if rc:
         data_resp = {"redirect_uri": url_for("posts.dash_posts"), "message": "Successfully inserted the post !!"}
         return jsonify(data_resp)
@@ -35,16 +39,21 @@ def edit():
     blog_title = request_body["blog_title"]
     old_title = request_body["old_title"]
     blog_content = request_body["blog_content"]
+    blog_tags_list = request_body["blog_tags"]
+
+    if len(blog_tags_list) == 0:
+        blog_tags_list.append("uncategorized")
+
 
     # Parse the image url and store it for the purposes of logging
     html_parsed = BeautifulSoup(blog_content, "html.parser")
     new_img_list = [image["src"] for image in html_parsed.find_all("img")]
 
     # Call the post service to add the post
-    post = posts_service.PostService.get_post_by_title(old_title)
+    post = posts_service.PostService.get_post_by_title(old_title, is_admin=True)
     if post:
         p_obj = posts_service.PostService()
-        rc = p_obj.edit_post(post, blog_title, blog_content, new_img_list)
+        rc = p_obj.edit_post(post, blog_title, blog_content, new_img_list, blog_tags_list)
         if rc:
             return "Successfully edited the blog content"
         return "Could not edit the content of blog, check logs"
@@ -58,7 +67,7 @@ def delete():
     blog_title = request_body["blog_title"]
 
     # Call the post service to add the post
-    post = posts_service.PostService.get_post_by_title(blog_title)
+    post = posts_service.PostService.get_post_by_title(blog_title, is_admin=True)
     if post:
         p_obj = posts_service.PostService()
         rc = p_obj.delete_post(post)

@@ -15,7 +15,7 @@ def blog():
     post_obj = PostService()
     prev_limit = request.args.get("prev_limit")
     posts = post_obj.get_all_posts(order_by=True)
-    print(cache.get("all-posts"))
+    print(cache.get("all-posts-ordered"))
     if not prev_limit and posts:
         post_len = len(posts)
         prev_limit = os.environ.get("post_init_limit")
@@ -28,7 +28,7 @@ def blog():
             post) for post in posts_data]
         print(cache.get("more_posts"))
         return {"posts_resp": posts_serialized,
-        "posts_html_reponse": posts_blog_service.get_posts_html_resp(posts_serialized, post_len, new_limit),
+        "posts_html_reponse": posts_blog_service.get_posts_html_resp(posts_serialized, len(posts_data), new_limit),
                 "prev_limit": new_limit,
                 "load_more": True,
                 "post_len": post_len}

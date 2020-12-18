@@ -1,5 +1,6 @@
 from common import db
 from common.models.images_model import Images
+from common.models.tags_model import Tags
 
 class Posts(db.Model):
     __tablename__ = "posts"
@@ -11,3 +12,4 @@ class Posts(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     modified_flag = db.Column(db.Boolean, default=False)
     images = db.relationship("Images", backref="posts", lazy=True)
+    category = db.relationship("Tags", backref="posts", lazy=True)

@@ -12,6 +12,10 @@
       <label for="bodyFormInput">Content</label>
       <textarea class="form-control" id="summernote" name="editordata">{{ post.content }}</textarea>
     </div>
+    <div class="form-group">
+      <label for="categoryFormInput">Categories</label>
+      <input type="text" class="form-control" name="categoryFormInput" value="{{ tags }}">
+    </div>
     <div class="form-group col-1">
       <button type="submit" class="btn btn-primary btn-block">Edit</button>
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />

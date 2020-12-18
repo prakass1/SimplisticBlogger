@@ -1,4 +1,4 @@
-function add_post(blog_title, blog_author, blog_content) {
+function add_post(blog_title, blog_author, blog_content, blog_tags) {
     //Upload image via ajax
     $("#log").empty();
     $("#log").hide();
@@ -6,7 +6,8 @@ function add_post(blog_title, blog_author, blog_content) {
     var data = {
         "blog_title": blog_title,
         "blog_author": blog_author,
-        "blog_content": blog_content
+        "blog_content": blog_content,
+        "blog_tags": blog_tags
     };
     //data.append("blog_title", blog_title);
     //data.append("blog_author", blog_author);
@@ -92,7 +93,7 @@ function delete_post(blog_title, closest_tr) {
 }
 
 
-function edit_post(blog_title, blog_content, old_title) {
+function edit_post(blog_title, blog_content, old_title, blog_tags) {
     //Upload image via ajax
     $("#log").empty();
     $("#log").hide();
@@ -100,7 +101,8 @@ function edit_post(blog_title, blog_content, old_title) {
     var data = {
         "blog_title": blog_title,
         "blog_content": blog_content,
-        "old_title": old_title
+        "old_title": old_title,
+        "blog_tags": blog_tags
     };
 
     var csrftoken = $('meta[name=csrf-token]').attr('content');

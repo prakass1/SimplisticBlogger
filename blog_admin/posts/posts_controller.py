@@ -15,7 +15,7 @@ def dash_overview():
 @login_required
 def dash_posts():
     #load all posts
-    posts = posts_service.PostService.get_all_posts()
+    posts = posts_service.PostService.get_all_posts(order_by=True, is_admin=True)
     return render_template("dashboard/posts.html", user=current_user, posts=posts)
 
 
@@ -28,5 +28,7 @@ def add_post():
 @login_required
 def edit_post(post_title):
     print(post_title)
-    post = posts_service.PostService.get_post_by_title(post_title)
-    return render_template("dashboard/edit_post.html", user=current_user, post=post)
+    post = posts_service.PostService.get_post_by_title(post_title, is_admin=True)
+    tags = posts_service.PostService.get_tags_for_post(post)
+    print(tags)
+    return render_template("dashboard/edit_post.html", user=current_user, post=post, tags=tags)

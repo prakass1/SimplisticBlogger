@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv, find_dotenv
 from instance.config import app_config
 from flask_login import LoginManager
-from common import  db
+from common import  db, cache
 from flask_wtf.csrf import CSRFProtect
 
 login_manager = LoginManager()
@@ -28,6 +28,8 @@ def create_admin_app(config_name):
     db.init_app(app)
     # init csrf
     csrf_protect.init_app(app)
+    # init cache
+    cache.init_app(app)
 
     # Set the login manager
     login_manager.login_view = 'auth.admin'
