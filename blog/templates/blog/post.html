@@ -4,14 +4,22 @@
 <header class="newhead">
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        {% if post_data %}
+      <div class="col-lg-12 col-md-12 mx-auto">
+        {% if data_resp.post_data %}
         <div class="post-heading">
-          <h1>{{post_data.title}}</h1>
-          <!--<h2 class="subheading">Problems look mighty small from 150 miles up</h2>-->
-          <span class="meta">Posted by
-            <a href="#">{{post_data.author}}</a>
-            on {{post_data.posted_date.strftime('%B %d, %Y')}}</span>
+          <h1>{{data_resp.post_data.title}}</h1>
+          <div style="margin-top: 10px;">
+          {% for item in data_resp.tags %}
+            <a href="{{url_for('posts.get_post_tag', tag=item.tag)}}" style="display:inline-block" class="btn-info btn-sm" role="button">
+              {{item.tag}}
+            </a>
+          {% endfor %}
+        </div>
+          <div style="margin-top:10px;">
+            <span class="meta">Posted by
+              <a href="#">{{data_resp.post_data.author}}</a>
+              on {{data_resp.post_data.posted_date.strftime('%B %d, %Y')}}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -21,8 +29,8 @@
 <article>
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        {{post_data.content|safe}}
+      <div class="col-lg-12 col-md-12 mx-auto">
+        {{data_resp.post_data.content|safe}}
       </div>
     </div>
   </div>

@@ -26,7 +26,7 @@
 
     <style>
         .newhead {
-        margin-bottom: 5px;
+        margin-bottom: 10px;
         background: no-repeat center center;
         /*background-color: #868e96;*/
         background-color: #DCDCDC;
@@ -66,7 +66,7 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg bg-info navbar-dark fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('posts.blog') }}">{{resp["blog_header"]}}</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
@@ -97,7 +97,7 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="col-lg-10 col-md-10 mx-auto">
                     <ul class="list-inline text-center">
                         <li class="list-inline-item">
                             <a href={{resp.social_linkedin}}>

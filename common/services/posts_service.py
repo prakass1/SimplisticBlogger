@@ -34,7 +34,6 @@ class PostService(object):
         except exc.SQLAlchemyError:
             traceback.print_exc()
             return False
-
     
     def delete_post(self, post):
         try:
@@ -116,14 +115,18 @@ class PostService(object):
     def get_post_by_title(cls, post_title, is_admin=False):
         if is_admin:
             post = posts_model.Posts.query.filter_by(title = post_title).first()
+            tags = tags_model.Tags.query.filter_by(posts=post).all()
+            post_set = [post, tags]
         elif cache.get(post_title):
-                print("Retreiving from cache")
-                post = cache.get(post_title)
+            print("Retreiving from cache")
+            post_set = cache.get(post_title)
         else:
             print("Not yet cached, caching the current post details")
             post = posts_model.Posts.query.filter_by(title = post_title).first()
-            cache.set(post_title, post, timeout=50)
-        return post
+            tags = tags_model.Tags.query.filter_by(posts=post).all()
+            cache.set(post_title, [post, tags], timeout=50)
+            post_set = [post, tags]
+        return post_set
     
     @classmethod
     def get_tags_for_post(cls, post):

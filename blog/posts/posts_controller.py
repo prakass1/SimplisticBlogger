@@ -1,10 +1,10 @@
-from flask import Blueprint
-from flask import render_template, request, redirect, url_for, jsonify
+import os
+from flask import Blueprint,render_template, request, redirect, url_for
 from common.services.posts_service import PostService
+from common.services import tags_service
 from blog import resp
 from blog import cache
 from blog.posts.service import posts_blog_service
-import os
 
 posts_bp = Blueprint(
     "posts", __name__)
@@ -34,16 +34,43 @@ def blog():
                 "post_len": post_len}
     else:
         posts_data = False
+        post_len = 0
+
     return render_template("blog/index.html",
                            posts_data=posts_data, resp=resp, prev_limit=prev_limit, post_len=post_len)
 
 
 @posts_bp.route("/post/<blog_title>")
 def get_post_title(blog_title):
-    post = PostService().get_post_by_title(blog_title)
-    if post:
-        post_data = post
+    post_data = PostService().get_post_by_title(blog_title)
+    if len(post_data) > 0:
+        data_resp = {"post_data": post_data[0], "tags": post_data[1]}
     else:
-        post_data = False
+        data_resp = {"post_data": False, "tags": False}
 
-    return render_template("blog/post.html", post_data=post_data, resp=resp)
+    return render_template("blog/post.html", data_resp=data_resp, resp=resp)
+
+@posts_bp.route("/post/category/<tag>")
+def get_post_tag(tag):
+    prev_limit = request.args.get("prev_limit")
+    posts = tags_service.get_post_tags(tag)
+    if not prev_limit and posts:
+        post_len = len(posts)
+        prev_limit = os.environ.get("post_init_limit")
+        posts_data = posts[:int(prev_limit)]
+    elif prev_limit and posts:
+        post_len = len(posts)
+        new_limit = int(prev_limit) + int(os.environ.get("post_init_limit"))
+        posts_data = posts[int(prev_limit):new_limit]
+        posts_serialized = [posts_blog_service.serialize(
+            post) for post in posts_data]
+        return {"posts_resp": posts_serialized,
+        "posts_html_reponse": posts_blog_service.get_posts_html_resp(posts_serialized, len(posts_data), new_limit),
+                "prev_limit": new_limit,
+                "load_more": True,
+                "post_len": post_len}
+    else:
+        return redirect(url_for("posts.blog"))
+
+    return render_template("blog/index.html",
+                           posts_data=posts_data, resp=resp, prev_limit=prev_limit, post_len=post_len)
