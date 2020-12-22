@@ -27,8 +27,10 @@ def add_post():
 @posts_bp.route("/edit_post.html/<post_title>")
 @login_required
 def edit_post(post_title):
-    print(post_title)
-    post = posts_service.PostService.get_post_by_title(post_title, is_admin=True)
-    tags = posts_service.PostService.get_tags_for_post(post)
-    print(tags)
-    return render_template("dashboard/edit_post.html", user=current_user, post=post, tags=tags)
+    post_data = posts_service.PostService.get_post_by_title(post_title, is_admin=True)
+    if len(post_data) > 0:
+        data_resp = {"post_data": post_data[0], "tags": posts_service.PostService.serialize_tags(post_data[1])}
+    else:
+        data_resp = {"post_data": False, "tags": False}
+
+    return render_template("dashboard/edit_post.html", user=current_user, data_resp=data_resp)

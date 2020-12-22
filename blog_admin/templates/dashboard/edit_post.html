@@ -5,16 +5,16 @@
   <form id="edit-form-post" method="PUT">
     <div class="form-group">
       <label for="titleFormInput">Title</label>
-      <input type="text" class="form-control" id="edit_form_title" value= "{{ post.title }}" required>
-      <input type="hidden" class="form-control" id="edit_form_old_title" value= "{{ post.title }}" required>
+      <input type="text" class="form-control" id="edit_form_title" value= "{{ data_resp.post_data.title }}" required>
+      <input type="hidden" class="form-control" id="edit_form_old_title" value= "{{ data_resp.post_data.title }}" required>
     </div>
     <div class="form-group">
       <label for="bodyFormInput">Content</label>
-      <textarea class="form-control" id="summernote" name="editordata">{{ post.content }}</textarea>
+      <textarea class="form-control" id="summernote" name="editordata">{{ data_resp.post_data.content }}</textarea>
     </div>
     <div class="form-group">
       <label for="categoryFormInput">Categories</label>
-      <input type="text" class="form-control" name="categoryFormInput" value="{{ tags }}">
+      <input type="text" class="form-control" name="categoryFormInput" value="{{ data_resp.tags }}">
     </div>
     <div class="form-group col-1">
       <button type="submit" class="btn btn-primary btn-block">Edit</button>

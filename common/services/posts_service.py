@@ -35,12 +35,14 @@ class PostService(object):
             traceback.print_exc()
             return False
     
-    def delete_post(self, post):
+    def delete_post(self, post, tags):
         try:
             #get the tags associated with the post
-            tags = tags_model.Tags.query.filter_by(post=post).all()
+            #tags = tags_model.Tags.query.filter_by(post=post).all()
             if tags:
-                db.session.delete(tags)
+                for db_tag in tags:
+                    db.session.delete(db_tag)
+                    db.session.commit()
             db.session.delete(post)
             db.session.commit()
             return True
@@ -58,7 +60,7 @@ class PostService(object):
                 db.session.add(db_obj)
                 db.session.commit()
     
-    def edit_post(self, post, new_title, new_content, new_image_list, new_tags_list):
+    def edit_post(self, post, db_tags, new_title, new_content, new_image_list, new_tags_list):
         try:
             post.title = new_title
             post.content = new_content
@@ -69,10 +71,8 @@ class PostService(object):
             db_img_list = [db_image.image_url for db_image in db_image_obj]
             self.cmp_add(new_image_list, db_img_list, post, "IMAGES")
             # Add the tags
-            db_tag_obj = tags_model.Tags.query.filter_by(posts=post).all()
-            db_tag_list = [db_tag.tag for db_tag in db_tag_obj]
-            print(db_tag_list)
-            print(new_tags_list)
+            #db_tag_obj = tags_model.Tags.query.filter_by(posts=post).all()
+            db_tag_list = [db_tag.tag for db_tag in db_tags]
             if ("uncategorized" not in new_tags_list) and ("uncategorized" in db_tag_list):
                 print("True")
                 db_tag_list.remove("uncategorized")
@@ -131,6 +131,11 @@ class PostService(object):
     @classmethod
     def get_tags_for_post(cls, post):
         db_tags = tags_model.Tags.query.filter_by(posts=post).all()
+        tags_strings = ",".join(db_tag.tag for db_tag in db_tags)
+        return tags_strings
+    
+    @classmethod
+    def serialize_tags(cls, db_tags):
         tags_strings = ",".join(db_tag.tag for db_tag in db_tags)
         return tags_strings
 

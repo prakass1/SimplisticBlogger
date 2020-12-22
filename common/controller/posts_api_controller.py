@@ -50,10 +50,12 @@ def edit():
     new_img_list = [image["src"] for image in html_parsed.find_all("img")]
 
     # Call the post service to add the post
-    post = posts_service.PostService.get_post_by_title(old_title, is_admin=True)
-    if post:
+    post_data = posts_service.PostService.get_post_by_title(old_title, is_admin=True)
+    if len(post_data) > 0:
         p_obj = posts_service.PostService()
-        rc = p_obj.edit_post(post, blog_title, blog_content, new_img_list, blog_tags_list)
+        post = post_data[0]
+        tags = post_data[1]
+        rc = p_obj.edit_post(post,tags, blog_title, blog_content, new_img_list, blog_tags_list)
         if rc:
             return "Successfully edited the blog content"
         return "Could not edit the content of blog, check logs"
@@ -67,10 +69,10 @@ def delete():
     blog_title = request_body["blog_title"]
 
     # Call the post service to add the post
-    post = posts_service.PostService.get_post_by_title(blog_title, is_admin=True)
-    if post:
+    post_data = posts_service.PostService.get_post_by_title(blog_title, is_admin=True)
+    if len(post_data) > 0:
         p_obj = posts_service.PostService()
-        rc = p_obj.delete_post(post)
+        rc = p_obj.delete_post(post_data[0], post_data[1])
         if rc:
             return "Successfully deleted the blog"
         return "Could not delete the content of blog, check logs"
