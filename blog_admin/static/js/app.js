@@ -150,7 +150,8 @@ $(document).ready(function(){
         e.preventDefault();
         var closest_tr = $(this).closest("tr");
         $("#log").hide();
-        var blog_title = $("#post_id").text();
+        var blog_title = $(closest_tr).find("#post_id").text();
+        //alert(blog_title);
         delete_post(blog_title, closest_tr);
     });
 
