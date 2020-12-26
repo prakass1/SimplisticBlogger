@@ -2,11 +2,25 @@ version: "3.3"
 networks:
   backend-network:
 services:
+  blog-app:
+    container_name: "blog_app"
+    restart: "always"
+    depends_on:
+      - "blog-admin-app"
+      # - "mysql_db"
+    build:
+      context: ..
+      dockerfile: SimplisticBlogger/blog/Dockerfile
+    env_file: ".env"
+    ports:
+      - "9010:${FLASK_BLOG_PORT}"
+    networks:
+      - "backend-network"
   blog-admin-app:
     container_name: "blog_admin"
     restart: "always"
-    depends_on:
-      - "mysql_db"
+    # depends_on:
+    #   - "mysql_db"
     build:
       context: ..
       dockerfile: SimplisticBlogger/blog_admin/Dockerfile
@@ -16,21 +30,21 @@ services:
     networks:
       - "backend-network"
 
-  mysql_db:
-    image: "mysql:latest"
-    restart: "always"
-    command: "--default-authentication-plugin=mysql_native_password"
-    container_name: "mysql_db"
-    env_file: ".env"
-    #volumes:
-    #  - mysql-data:/var/lib/mysql
-    ports:
-      - "3308:${DB_PORT}"
-    environment:
-      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
-      MYSQL_DATABASE: "${DB_NAME}"
-    networks:
-      - "backend-network"
+  # mysql_db:
+  #   #image: "mysql:latest"
+  #   restart: "always"
+  #   command: "--default-authentication-plugin=mysql_native_password"
+  #   container_name: "mysql_db"
+  #   env_file: ".env"
+  #   #volumes:
+  #   #  - mysql-data:/var/lib/mysql
+  #   ports:
+  #     - "3308:${DB_PORT}"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+  #     MYSQL_DATABASE: "${DB_NAME}"
+  #   networks:
+  #     - "backend-network"
 
 #volumes:
 #  mysql-data:
