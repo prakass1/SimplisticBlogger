@@ -24,8 +24,17 @@
 
     <!-- Custom styles for this template -->
     <link href="{{url_for('static', filename='css/clean-blog.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/semantic-ui-comment.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/timeline.css')}}" rel="stylesheet">
 
     <style>
+        #over {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
         .newhead {
         margin-bottom: 10px;
         background: no-repeat center center;
@@ -59,7 +68,24 @@
         header.newhead .page-heading h1, header.newhead .site-heading h1 {
         font-size: 50px;
         margin-top: 0;
-        }    
+        }
+
+        .dividing.header{
+            padding-bottom: .21428571rem;
+            border-bottom: 1px solid rgba(34,36,38,.15);
+        }
+
+        .comment.border{
+            border: 1px solid rgba(116, 116, 116, 0.15);
+        }
+
+        .cv-timeline,cv-timeline *,
+        .cv-timeline *:before,
+        .cv-timeline *:after {
+            -webkit-box-sizing: content-box !important;
+            -moz-box-sizing: content-box !important;
+            box-sizing: content-box !important;
+        }
 
     </style>
 </head>
@@ -135,8 +161,8 @@
     
     <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-    <script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
     <!-- Custom scripts for this template -->
    

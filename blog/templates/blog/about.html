@@ -1,35 +1,158 @@
 {% extends "blog/base.html" %}
 {% block content %}
 <!-- Page Header -->
-<header class="masthead">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="page-heading">
-          <h1>About Me</h1>
-          <span class="subheading">This is what I do.</span>
+<div class="container">
+  <div class="row" style="margin-top:150px;">
+    <div class="card col-12 col-lg-3">
+      &nbsp;
+      <img style="display:flex;" class="rounded-circle" alt="20x20" width=200 height=230
+        src="{{url_for('static', filename='img/subash_prakash.jpeg')}}" data-holder-rendered="true">
+      <h4>Subash Prakash</h4>
+      <h4 style="color:rgba(105, 103, 103, 0.54)">Software Engineer</h4>
+      <h4 style="color:rgba(54, 53, 53, 0.54)">XYZ</h4>
+      <h4 style="color:rgba(49, 48, 48, 0.54)">ABCD</h4>
+    </div>
+    <div class="col-12 col-lg-8">
+      <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem IpsumLorem IpsumLorem Ipsum Lorem IpsumLorem Ipsum</p>
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          aa
+        </div>
+        <div class="col-12 col-lg-6">
+          aa
         </div>
       </div>
     </div>
   </div>
-</header>
+</div>
 
+<hr>
 <!-- Main Content -->
 <div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-md-10 mx-auto">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates
-        odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto
-        error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas
-        voluptatibus, minus!</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex
-        itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" id="projectsTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active show" id="projects-tab" data-toggle="tab" href="#projects" role="tab"
+        aria-controls="projects" aria-selected="true">Projects</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="experience-tab" data-toggle="tab" href="#experience" role="tab" aria-controls="experience"
+        aria-selected="false">Experiences</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane fade active show" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+      <hr>
+      <div class="row">
+        <div class="col-12 col-lg-4">
+          <div class="card" style="width: 16rem;">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="card" style="width: 16rem;">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="card" style="width: 16rem;">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <hr>
+        <div class="col-12 col-lg-4">
+          <div class="card" style="width: 16rem;">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="card" style="width: 16rem;">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="experience-tab">
+      <div class="cv-timeline">
+        <ul class="timeline">
+          <!-- Item 1 -->
+          <li>
+            <div class="direction-r">
+              <div class="flag-wrapper">
+                <span class="flag">Freelancer</span>
+                <span class="time-wrapper"><span class="time">2013 - present</span></span>
+              </div>
+              <div class="desc">My current employment. Way better than the position before!</div>
+            </div>
+          </li>
+
+          <!-- Item 2 -->
+          <li>
+            <div class="direction-l">
+              <div class="flag-wrapper">
+                <span class="flag flag-old">Apple Inc.</span>
+                <span class="time-wrapper"><span class="time">2011 - 2013</span></span>
+              </div>
+              <div class="desc flag-old">My first employer. All the stuff I've learned and projects I've been working on.</div>
+            </div>
+          </li>
+
+          <!-- Item 3 -->
+          <li>
+            <div class="direction-r">
+              <div class="flag-wrapper">
+                <span class="flag flag-old">Harvard University</span>
+                <span class="time-wrapper"><span class="time">2013 - 2011</span></span>
+              </div>
+              <div class="desc flag-old">A description of all the lectures and courses I have taken and my final degree?</div>
+            </div>
+          </li>
+        <!-- Item 4 -->
+        <li>
+          <div class="direction-r">
+            <div class="flag-wrapper">
+              <span class="flag flag-old">Sir MVIT</span>
+              <span class="time-wrapper"><span class="time">2009 - 2013</span></span>
+            </div>
+            <div class="desc flag-old"> Bachelor of Engineering in Information Science majoring computer science related subjects</div>
+          </div>
+        </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
-
 <hr>
 
 {% endblock %}

@@ -15,6 +15,8 @@ class Users(UserMixin, db.Model):
     password = db.Column(db.String(255), nullable=False)
     changed_pass = db.Column(db.Boolean(), nullable=False, default=False)
     f_name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
+    profile_pic = db.Column(db.String(255), nullable=True)
     l_name = db.Column(db.String(255), nullable=True)
     posts = db.relationship("Posts", backref="users", lazy=True)
 

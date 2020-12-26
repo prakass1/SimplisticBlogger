@@ -13,6 +13,7 @@ csrf_protect = CSRFProtect()
 username = environ.get("ADMIN_USERNAME")
 password = environ.get("PASSWORD")
 f_name = environ.get("F_NAME")
+email = environ.get("EMAIL")
 
 load_dotenv(find_dotenv())
 
@@ -47,7 +48,7 @@ def create_admin_app(config_name):
         admin = user_obj.query_single_user(user_name=username)
         if admin == -1:
             print("Creating the user for the first time")
-            return_type = user_obj.create_user(username, generate_password_hash(password), f_name)
+            return_type = user_obj.create_user(username, generate_password_hash(password), f_name, email)
             if return_type == -1:
                 print("There has been an error while creating the admin user. Check logs")
             else:

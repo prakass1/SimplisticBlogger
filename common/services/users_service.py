@@ -9,12 +9,13 @@ class UserService:
     def __init__(self):
         pass
 
-    def create_user(self, user_name, password, f_name, l_name="", changed_pass=False):
+    def create_user(self, user_name, password, f_name, email, l_name="", changed_pass=False):
         try: 
             user = Users(user_name=user_name,
             password=password,
             changed_pass=changed_pass,
             f_name=f_name,
+            email=email,
             l_name=l_name)
             db.session.add(user)
             db.session.commit()
