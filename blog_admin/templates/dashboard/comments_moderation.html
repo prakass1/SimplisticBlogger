@@ -1,0 +1,48 @@
+{% extends "dashboard/dashboard.html" %}
+{% block content %}
+<main id="comments-admin" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+    <h1 class="h2">Posts Overview</h1>
+    <div class="row">
+        <div class="col">
+            <table id="comments-dtable" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in comments %}
+                    <tr id="comment-{{comment.comment_ref_id}}">
+                        <td>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div>
+                                        <h6 class="card-subtitle mb-2 text-muted float-right">Posted on
+                                            {{comment.posted_date}}</h6>
+                                        <h6 class="card-title">Name: {{comment.author_name}}</h6>
+                                        <h6 class="card-subtitle">Email: {{comment.author_email}}</h6>
+                                    </div>
+                                    <hr>
+                                        <p class="card-text"><h6>Comment Content:</h6> {{comment.content}}</p>
+                                        <hr>
+                                        <p>
+                                        <h6> More Info: <a href="{{comment.post_link}}" class="card-link">Visit Post</a>
+                                        </h6>
+                                        <span>Actions:</span>
+                                        <select class="comment-status btn-sm">
+                                            <option selected="true" disabled="disabled">Select</option>
+                                            <option class="alert-success" value="2">Approve</option>
+                                            <option class="alert-danger" value="3">Reject</option>
+                                        </select>
+                                    </p>
+                                    </div>
+                                </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+{% endblock %}

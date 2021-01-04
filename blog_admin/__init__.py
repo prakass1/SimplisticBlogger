@@ -41,6 +41,8 @@ def create_admin_app(config_name):
         
         db.create_all()
 
+        
+
         #Query table to check if admin is already present then simply do not create a user...
 
         # Create the admin user as per configs
@@ -53,19 +55,29 @@ def create_admin_app(config_name):
                 print("There has been an error while creating the admin user. Check logs")
             else:
                 print("Admin user has been created and can be logged in")
+        
+        from common.models import users_model
+        @login_manager.user_loader
+        def load_user(user_id):
+            # Query by user_id of the Users table
+            return users_model.Users.query.get(int(user_id))
 
         # Module imports
         from blog_admin.api import api_controller
         from blog_admin.auth import auth_controller
         from blog_admin.posts import posts_controller
+        from blog_admin.posts import comments_controller
         from common.controller import posts_api_controller
         from common.controller import images_api_controller
+        from common.controller import comments_api_controller
 
         # Register blueprints
         app.register_blueprint(api_controller.api_bp)
         app.register_blueprint(auth_controller.auth_bp, url_prefix="/admin")
         app.register_blueprint(posts_controller.posts_bp, url_prefix="/admin")
+        app.register_blueprint(comments_controller.comments_bp, url_prefix="/admin")
         app.register_blueprint(posts_api_controller.posts_api_bp, url_prefix="/api")
         app.register_blueprint(images_api_controller.image_bp)
+        app.register_blueprint(comments_api_controller.comments_bp)
 
     return app

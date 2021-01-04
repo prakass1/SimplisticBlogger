@@ -1,12 +1,6 @@
 from common import db
 from flask_login import UserMixin
-from blog_admin import login_manager
 from common.models.posts_model import Posts
-
-@login_manager.user_loader
-def load_user(user_id):
-    # Query by user_id of the Users table
-    return Users.query.get(int(user_id))
 
 class Users(UserMixin, db.Model):
     __tablename__ = "users"

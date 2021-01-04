@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{resp["blog_header"]}} Title</title>
 
@@ -168,7 +171,7 @@
    
     <script src="{{url_for('static', filename='js/clean-blog.min.js')}}"></script>
     
-    <script src="{{url_for('static', filename='js/app.js')}}"></script>
+    <script type="module" src="{{url_for('static', filename='js/app.js')}}"></script>
 
 </body>
 

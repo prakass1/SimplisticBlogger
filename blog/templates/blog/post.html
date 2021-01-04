@@ -9,12 +9,13 @@
         <div class="post-heading">
           <h1>{{data_resp.post_data.title}}</h1>
           <div style="margin-top: 10px;">
-          {% for item in data_resp.tags %}
-            <a href="{{url_for('posts.get_post_tag', tag=item.tag)}}" style="display:inline-block" class="btn-info btn-sm" role="button">
+            {% for item in data_resp.tags %}
+            <a href="{{url_for('posts.get_post_tag', tag=item.tag)}}" style="display:inline-block"
+              class="btn-info btn-sm" role="button">
               {{item.tag}}
             </a>
-          {% endfor %}
-        </div>
+            {% endfor %}
+          </div>
           <div style="margin-top:10px;">
             <span class="meta">Posted by
               <a href="#">{{data_resp.post_data.author}}</a>
@@ -39,79 +40,65 @@
 <p>No content to show</p>
 {% endif %}
 <div class="container">
-<h3 class="dividing header">Comments</h3>
-<div class="comment border">
-  <div class="ui threaded comments">
-    <div class="comment">
-      <a class="avatar">
-        <img src="/images/avatar/small/matt.jpg">
-      </a>
-      <div class="content">
-        <a class="author">Matt</a>
-        <div class="metadata">
-          <span class="date">Today at 5:42PM</span>
-        </div>
-        <div class="text">
-          How artistic!
-        </div>
-        <div class="actions">
-          <a class="reply">Reply</a>
-        </div>
-      </div>
-    </div>
-    <div class="comment">
-      <a class="avatar">
-        <img src="/images/avatar/small/elliot.jpg">
-      </a>
-      <div class="content">
-        <a class="author">Elliot Fu</a>
-        <div class="metadata">
-          <span class="date">Yesterday at 12:30AM</span>
-        </div>
-        <div class="text">
-          <p>This has been very useful for my research. Thanks as well!</p>
-        </div>
-        <div class="actions">
-          <a class="reply">Reply</a>
-        </div>
-      </div>
-      <div class="comments">
-        <div class="comment">
-          <a class="avatar">
-            <img src="/images/avatar/small/jenny.jpg">
-          </a>
-          <div class="content">
-            <a class="author">Jenny Hess</a>
-            <div class="metadata">
-              <span class="date">Just now</span>
-            </div>
-            <div class="text">
-              Elliot you are always so right :)
-            </div>
-            <div class="actions">
-              <a class="reply">Reply</a>
-            </div>
+  <h3 class="dividing header">Comments</h3>
+  <div class="comment border">
+    <div class="ui threaded comments">
+      {% for comment_info in data_resp.comments %}
+      <div class="comment" comment-ref="{{comment_info.comment_ref_id}}">
+        <a class="avatar">
+          <img src="{{comment_info.image_url}}">
+        </a>
+        <div class="content">
+          <a class="author">{{comment_info.author_name}}</a>
+          <div class="metadata">
+            <span class="date">{{comment_info.posted_date}}</span>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="comment">
-      <a class="avatar">
-        <img src="/images/avatar/small/joe.jpg">
-      </a>
-      <div class="content">
-        <a class="author">Joe Henderson</a>
-        <div class="metadata">
-          <span class="date">5 days ago</span>
-        </div>
-        <div class="text">
-          Dude, this is awesome. Thanks so much
-        </div>
-        <div class="actions">
+          <div class="text">
+            {{comment_info.content|safe}}
+          </div>
+          <!--<div class="actions">
           <a class="reply">Reply</a>
+        </div>-->
         </div>
       </div>
+      {% endfor %}
     </div>
+  </div>
 </div>
+<!-- Form for comments -->
+<hr>
+<div class="container">
+  <p>
+  <h5>Leave a comment on how you felt of the article...</h5>
+  </p>
+  <main id="add-comment" class="col-md-9 col-lg-10">
+    <div style="display:none;" class="alert alert-warning alert-dismissible fade show" role="alert" id="log">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form id="add-form-comment" method="POST">
+      <div class="form-group">
+        <h5>Author Name</h5>
+        <input type="text" class="form-control" id="nameFormInput" placeholder="Your Name.." required>
+      </div>
+      <div class="form-group">
+        <h5>Author Email</h5>
+        <input type="text" class="form-control" id="emailFormInput" placeholder="Your Email.." required>
+        <h5> Note: This email will not be shared to anyone</h5>
+      </div>
+      <div class="form-group">
+        <h5>Comment</h5>
+        <textarea style="height:150px;" class="form-control" id="commentForm" name="commentForm" required></textarea>
+      </div>
+      <div class="form-group">
+        <div class="g-recaptcha" data-sitekey="{{site_key}}"></div>
+        <br />
+        <button type="submit" class="btn btn-dark">Comment</button>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+      </div>
+    </form>
+  </main>
 </div>
+<hr>
 {% endblock %}
