@@ -2,6 +2,7 @@ import {add_post, delete_post, edit_post} from './posts_app.js';
 import {approve_comment} from './comments_app.js';
 
 $(document).ready(function(){
+    $(".toast").toast("hide");
     $("#log").hide();
     $("#posts-dtable #comments-dtable").DataTable();
     //Loading the summernote
@@ -158,8 +159,12 @@ $(document).ready(function(){
 
     //Change status of the comment
     $(".comment-status").on("change", function(e){
-        comment_status = this.value;
-        comment_ref_id = $(this).closest("tr").attr("id");
+        var comment_status = this.value;
+        var comment_ref_id = $(this).closest("tr").attr("id");
+        //Settings
+        if ($(".commentlog > strong").length > 0){
+            $("strong").remove();
+        }
         //approve comments
         approve_comment(comment_status, comment_ref_id);
     });

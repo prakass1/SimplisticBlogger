@@ -1,7 +1,24 @@
 {% extends "dashboard/dashboard.html" %}
 {% block content %}
 <main id="comments-admin" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-    <h1 class="h2">Posts Overview</h1>
+    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 40px;">
+        <div style="position: absolute; top: 0; right: 0;">
+
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+                <div class="toast-header">
+                    <strong class="mr-auto">Notification</strong>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- rewrite new notifications -->
+                <div class="toast-body alert-warning commentlog">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <h1 class="h2">Comments Moderation</h1>
     <div class="row">
         <div class="col">
             <table id="comments-dtable" class="table table-bordered" style="width:100%">
@@ -23,20 +40,22 @@
                                         <h6 class="card-subtitle">Email: {{comment.author_email}}</h6>
                                     </div>
                                     <hr>
-                                        <p class="card-text"><h6>Comment Content:</h6> {{comment.content}}</p>
-                                        <hr>
-                                        <p>
-                                        <h6> More Info: <a href="{{comment.post_link}}" class="card-link">Visit Post</a>
-                                        </h6>
-                                        <span>Actions:</span>
-                                        <select class="comment-status btn-sm">
-                                            <option selected="true" disabled="disabled">Select</option>
-                                            <option class="alert-success" value="2">Approve</option>
-                                            <option class="alert-danger" value="3">Reject</option>
-                                        </select>
+                                    <p class="card-text">
+                                    <h6>Comment Content:</h6> {{comment.content}}
                                     </p>
-                                    </div>
+                                    <hr>
+                                    <p>
+                                    <h6> More Info: <a href="{{comment.post_link}}" class="card-link">Visit Post</a>
+                                    </h6>
+                                    <span>Actions:</span>
+                                    <select class="comment-status btn-sm">
+                                        <option selected="true" disabled="disabled">Select</option>
+                                        <option class="alert-success" value="2">Approve</option>
+                                        <option class="alert-danger" value="3">Reject</option>
+                                    </select>
+                                    </p>
                                 </div>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}

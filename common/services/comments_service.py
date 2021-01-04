@@ -79,17 +79,20 @@ class CommentService():
     def edit_comment(self, comment_ref_id, comment_status):
         try:
             #If the status is reject delete from db
-            comment = comments_model.Comments.query.filter_by(comment_uuid=comment_ref_id)
-            if comment_status == States.REJECTED:
-                db.session.delete(comment)
-                db.session.commit()
-                return True
-            elif comment_status == States.APPROVED.value:
-                # Edit the comment to be accept for posting
-                comment.comment_state = States.APPROVED.value
-                db.session.add(comment)
-                db.session.commit()
-                return True
-        except exc.SQLAlchemyError:
+            comment = comments_model.Comments.query.filter_by(comment_uuid=comment_ref_id).first()
+            if comment:
+                if int(comment_status) == States.REJECTED.value:
+                    db.session.delete(comment)
+                    db.session.commit()
+                    return {"resp":True, "message": "Deleted Comment"}
+                elif int(comment_status) == States.APPROVED.value:
+                    # Edit the comment to be accept for posting
+                    comment.comment_state = States.APPROVED.value
+                    db.session.add(comment)
+                    db.session.commit()
+                    return {"resp":True, "message": "Approved Comment"}
+            else:
+                return {"resp":False, "message": "Comment does not exist in DB"}
+        except (exc.SQLAlchemyError, AttributeError):
             traceback.print_exc()
-            return False
+            return {"resp": False, "message":"Internal System Error has occurred"}

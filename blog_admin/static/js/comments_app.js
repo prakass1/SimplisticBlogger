@@ -1,8 +1,4 @@
 function approve_comment(comment_status, comment_ref_id) {
-    //Upload image via ajax
-    $("#log").empty();
-    $("#log").hide();
-    //var data = new FormData();
     var data = {
         "comment_status": comment_status,
         "comment_ref_id": comment_ref_id
@@ -22,22 +18,28 @@ function approve_comment(comment_status, comment_ref_id) {
             }
 
             if (comment_status === "" || comment_ref_id === "") {
-                $("#log").append("Empty payload, aborting request!!");
-                $("#log").show();
+                $('<strong>' + "Empty payload, aborting request!!" + "</strong>").prependTo(".commentlog");
+                $(".toast").toast("show");
                 this.abort();
             }
 
         },
         success: function (response) {
-            $("#log").empty();
-            $("#log").append(response);
-            $("#log").show();
+            if (response.resp){
+                $('<strong>' + response.message + '</strong>').prependTo(".commentlog");
+                $(".toast").toast("show");
+                $("#" + comment_ref_id).remove();
+            }
+            else{
+                $('<strong>' + response.message + '</strong>').prependTo(".commentlog");
+                $(".toast").toast("show");
+            }
+            
         },
-        error: function (data) {
+        error: function (response) {
             console.log(data);
-            $("#log").empty();
-            $("#log").append(data);
-            $("#log").show();
+            $('<strong">' + response.message + '</strong>').prependTo(".commentlog");
+            $(".toast").toast("show");
         }
     });
 

@@ -1,9 +1,8 @@
 import os
 import requests
-from flask import Blueprint,render_template, request, redirect, url_for
+from flask import Blueprint, request, jsonify
 from common.services.posts_service import PostService
-from common.services import posts_service,comments_service
-from blog import cache
+from common.services import comments_service
 
 comments_bp = Blueprint(
     "comments_api_bp", __name__)
@@ -47,9 +46,9 @@ def approve_comment():
     if comment_ref_id and comment_status:
         #Edit to approve or reject comment
         comment_serv_obj = comments_service.CommentService()
-        resp = comment_serv_obj.edit_comment(comment_ref_id, comment_status)
-        if resp:
-            return "Success"
-        return "Failed"
+        resp = comment_serv_obj.edit_comment(comment_ref_id.split("-")[1], comment_status)
+        print(resp)
+        return jsonify(resp)
     else:
-        return "Failed"
+        data_resp = {"resp":False, "message": "Payload passed is empty"}
+        return jsonify(data_resp)
