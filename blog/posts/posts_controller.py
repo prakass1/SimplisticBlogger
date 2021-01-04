@@ -1,7 +1,7 @@
 import os
 from flask import Blueprint,render_template, request, redirect, url_for
 from common.services.posts_service import PostService
-from common.services import tags_service
+from common.services import tags_service, comments_service
 from blog import resp
 from blog import cache
 from blog.posts.service import posts_blog_service
@@ -43,12 +43,15 @@ def blog():
 @posts_bp.route("/post/<blog_title>")
 def get_post_title(blog_title):
     post_data = PostService().get_post_by_title(blog_title)
+    #load all comments under_moderation
+    comments = comments_service.CommentService.get_comments(post_db_obj=post_data[0], is_admin=False)
+    print(comments)
     if len(post_data) > 0:
-        data_resp = {"post_data": post_data[0], "tags": post_data[1]}
+        data_resp = {"post_data": post_data[0], "tags": post_data[1], "comments": comments}
     else:
-        data_resp = {"post_data": False, "tags": False}
-
-    return render_template("blog/post.html", data_resp=data_resp, resp=resp)
+        data_resp = {"post_data": False, "tags": False, "comments": comments}
+    
+    return render_template("blog/post.html", data_resp=data_resp, resp=resp, site_key = os.environ.get("RECAPTCHA_SITE_KEY"))
 
 @posts_bp.route("/post/category/<tag>")
 def get_post_tag(tag):

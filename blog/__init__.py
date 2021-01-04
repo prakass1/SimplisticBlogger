@@ -3,6 +3,7 @@ from common import db, cache
 from os import environ
 from dotenv import load_dotenv, find_dotenv
 from instance.config import app_config
+from flask_wtf.csrf import CSRFProtect
 
 load_dotenv(find_dotenv())
 
@@ -19,14 +20,21 @@ resp = resp = {"blog_header": blog_header, "blog_subheader": blog_subheader,
             "social_git": social_git, "social_linkedin": social_linkedin, "social_stack": social_stack}
 
 
+csrf_protect = CSRFProtect()
+
 def create_app(config_name):
     # More on DB init here...
     ''' Create Flask app '''
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
+    
     # init sql-alchemy
     db.init_app(app)
+    
+    # csrf protection
+    csrf_protect.init_app(app)
+
     # init cache to app
     cache.init_app(app)
     
@@ -38,9 +46,15 @@ def create_app(config_name):
         from blog.posts import posts_controller
         from common.controller import posts_api_controller
         from common.controller import images_api_controller
+        from common.controller import comments_api_controller
 
         # Clear cache
         cache.clear()
+
+        # create ab
+        db.create_all()
+
+        from common.models import users_model
 
         # Register blueprints
         app.register_blueprint(api_controller.api_bp)
@@ -49,5 +63,6 @@ def create_app(config_name):
         app.register_blueprint(posts_controller.posts_bp, url_prefix="/blog")
         app.register_blueprint(posts_api_controller.posts_api_bp)
         app.register_blueprint(images_api_controller.image_bp)
+        app.register_blueprint(comments_api_controller.comments_bp)
 
     return app
