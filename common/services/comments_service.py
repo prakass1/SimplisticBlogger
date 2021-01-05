@@ -54,6 +54,18 @@ class CommentService():
         except exc.SQLAlchemyError:
             traceback.print_exc()
             return False
+    
+    @classmethod
+    def get_comment_count(cls, is_admin=False):
+        try:
+            if is_admin:
+                count = comments_model.Comments.query.filter_by(comment_state=States.UNDER_MODERATION.value).count()
+            else:
+                count = comments_model.Comments.query.filter_by(comment_state=States.APPROVED.value).count()
+            return count
+        except exc.SQLAlchemyError:
+            traceback.print_exc()
+            return 0
 
     @classmethod
     def get_comments(cls, post_db_obj=None, is_admin=False):

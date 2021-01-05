@@ -29,6 +29,15 @@ function approve_comment(comment_status, comment_ref_id) {
                 $('<strong>' + response.message + '</strong>').prependTo(".commentlog");
                 $(".toast").toast("show");
                 $("#" + comment_ref_id).remove();
+                temp_val = $("#comment-badge").text();
+                new_val = Integer.parseInt(temp_val) - 1;
+                if (new_val > 0){
+                    $("#comment-badge").text(new_val);
+                }
+                else{
+                    $("a.notification").remove();
+                }
+                
             }
             else{
                 $('<strong>' + response.message + '</strong>').prependTo(".commentlog");
