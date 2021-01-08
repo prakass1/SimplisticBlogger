@@ -6,9 +6,11 @@ from instance.config import app_config
 from flask_login import LoginManager
 from common import  db, cache
 from flask_wtf.csrf import CSRFProtect
+from flask_mail import Mail
 
 login_manager = LoginManager()
 csrf_protect = CSRFProtect()
+mail = Mail()
 
 username = environ.get("ADMIN_USERNAME")
 password = environ.get("PASSWORD")
@@ -31,6 +33,8 @@ def create_admin_app(config_name):
     csrf_protect.init_app(app)
     # init cache
     cache.init_app(app)
+    # init email
+    mail.init_app(app)
 
     # Set the login manager
     login_manager.login_view = 'auth.admin'

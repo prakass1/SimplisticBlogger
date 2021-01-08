@@ -7,6 +7,7 @@ from sqlalchemy import exc, and_
 from common import db, cache
 from common.models import posts_model, comments_model
 from common.services.comment_state_enums import States
+from common.services.utility import send_email, check_reply
 
 
 class CommentService():
@@ -38,21 +39,40 @@ class CommentService():
 
         return comments_list
 
-    def add_comment(self, author_name, author_email, author_comment, post_db_obj):
+    def add_comment(self, author_name, author_email, author_comment, post_db_obj, is_admin=False):
         try:
+            if is_admin:
+                comment_state = States.APPROVED.value
+            else:
+                comment_state = States.UNDER_MODERATION.value
+
             comment_db_obj = comments_model.Comments(author_name=author_name,
                                                      author_email=author_email,
                                                      author_comment=author_comment,
                                                      comment_uuid=str(
                                                          uuid.uuid4()).split("-")[0],
                                                      posted_date=datetime.datetime.now(),
-                                                     comment_state=States.UNDER_MODERATION.value,
+                                                     comment_state= comment_state,
                                                      posts=post_db_obj)
             db.session.add(comment_db_obj)
             db.session.commit()
             return True
         except exc.SQLAlchemyError:
             traceback.print_exc()
+            return False
+
+    @classmethod
+    def send_email(cls, author_comment, author_name, post_db_obj):
+        c_name_tuple, c_status = check_reply(author_comment, post_db_obj)
+        if c_name_tuple and c_status:
+            e_status = send_email(author_comment, author_name, c_name_tuple, post_db_obj)
+            if e_status:
+                print("The reply email is sent to -- ", c_name_tuple[0])
+                return True
+            else:
+                print("error while sending the email reply")
+                return False
+        else:
             return False
     
     @classmethod

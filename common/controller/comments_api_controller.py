@@ -23,7 +23,7 @@ def add_comment():
     author_comment = request_body["author_comment"]
     blog_title = request_body["blog_title"]
     g_recaptcha = request_body["g_recaptcha"]
-
+    is_admin = False
     post_data = PostService().get_post_by_title(blog_title)
 
     if len(post_data) > 0:
@@ -32,9 +32,25 @@ def add_comment():
         # Verify recaptcha else do not add the comment...
         if verify_recaptcha(g_recaptcha)["success"]:
             print("Recaptcha is verified, is human")
-            if comments_service_obj.add_comment(author_name, author_email, author_comment, post_data[0]):
+            if author_email == os.environ.get("EMAIL"):
+                is_admin=True
+            
+            if comments_service_obj.add_comment(author_name, author_email, author_comment, post_data[0], is_admin=is_admin):   
+                if is_admin:
+                    c_status = comments_service.CommentService.send_email(author_comment, author_name, post_data[0])
+                    if c_status:
+                        #Admin and it is a reply
+                        return "Your comment is posted and notification sent to the original commenter"
+                    
+                    #Admin but not reply
+                    return "Your comment is posted"
+                
+                # Commented but not admin
                 return "Your comment is posted and is under moderation"
+            
+            #Internal error
             return "There has been an error while posting the comment, try after sometime..."
+        #recaptcha failed
         return "Cannot comment this request"
 
 

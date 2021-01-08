@@ -4,6 +4,7 @@ from os import environ
 from dotenv import load_dotenv, find_dotenv
 from instance.config import app_config
 from flask_wtf.csrf import CSRFProtect
+from flask_mail import Mail
 
 load_dotenv(find_dotenv())
 
@@ -21,6 +22,7 @@ resp = resp = {"blog_header": blog_header, "blog_subheader": blog_subheader,
 
 
 csrf_protect = CSRFProtect()
+mail = Mail()
 
 def create_app(config_name):
     # More on DB init here...
@@ -37,6 +39,9 @@ def create_app(config_name):
 
     # init cache to app
     cache.init_app(app)
+
+    # Email
+    mail.init_app(app)
     
     with app.app_context():
         # Module imports
