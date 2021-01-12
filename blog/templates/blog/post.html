@@ -11,7 +11,7 @@
           <div style="margin-top: 10px;">
             {% for item in data_resp.tags %}
             <a href="{{url_for('posts.get_post_tag', tag=item.tag)}}" style="display:inline-block"
-              class="btn-info btn-sm" role="button">
+              class="btn-primary btn-sm" role="button">
               {{item.tag}}
             </a>
             {% endfor %}

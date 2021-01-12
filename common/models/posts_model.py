@@ -3,7 +3,6 @@ from common.models.images_model import Images
 from common.models.tags_model import Tags
 from common.models.comments_model import Comments
 
-
 class Posts(db.Model):
     __tablename__ = "posts"
     p_id = db.Column(db.Integer, primary_key=True, autoincrement=True)

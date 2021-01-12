@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     $("#load_more").on("click", function (e) {
         e.preventDefault();
-        prev_limit = $("#prev_limit").val();
+        var prev_limit = $("#prev_limit").val();
         // GET more
         load_more(prev_limit);
     });

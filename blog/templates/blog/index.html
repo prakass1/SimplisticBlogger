@@ -2,47 +2,61 @@
 {% block content %}
 <!-- Page Header -->
 <header class="newhead">
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10 col-md-10 mx-auto">
-      <div class="site-heading">
-        <h1>{{resp.blog_header}}</h1>
-        <span class="subheading">{{resp.blog_subheader}}</span>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>{{resp.blog_header}}</h1>
+          <span class="subheading">{{resp.blog_subheader}}</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </header>
-
+<div style="margin-top:30px;" class="tags-list float-md-right col-3 mx-auto">
+  <h5>Blog Tags:</h5>
+  {% if tags_count %}
+  {% for key, val in tags_count.items() %}
+    <a href="{{url_for('posts.get_post_tag', tag=key)}}" style="display:inline-block"
+    class="btn-info btn-sm" role="button">
+    {{key}} | {{val}}
+    </a>
+  {% endfor %}
+  {% endif %}
+</div>
 <!-- Main Content -->
 <div class="container">
   <div class="row">
-    <div class="col-lg-10 col-md-10 mx-auto">
+    <div class="col-lg-12 col-md-12 mx-auto">
       <div class="display-posts">
-      {% if posts_data %}
+        {% if posts_data %}
         {% for post in posts_data %}
-          <div class="post-preview">
+        <div class="post-preview">
           <a href="{{ url_for('posts.get_post_title', blog_title=post.title) }}">
             <h2 class="post-title">
-             {{ post.title }}
+              {{ post.title }}
             </h2>
           </a>
           <p class="post-meta">Posted by
             <a href="#">{{ post.author }}</a>
-            on {{post.posted_date.strftime('%B %d, %Y')}}</p>
-          </div>
-          <hr>
-        {% endfor %}
-      {% else %}
-      <h3> No posts to show yet.</h3>
-      {% endif %}
-      <hr>
-    </div>
-        <!-- Pager -->
-        {% if post_len|int >= prev_limit|int %}
-        <div class="clearfix">
-          <button class="btn btn-primary float-right" id="load_more">Older Posts &rarr;</button>
-          <input type="hidden" name="prev_limit" id="prev_limit" value="{{ prev_limit }}" >
+            on {{post.posted_date.strftime('%B %d, %Y')}}
+          </p>
         </div>
+        <hr>
+        {% endfor %}
+        {% else %}
+        <h3> No posts to show yet.</h3>
         {% endif %}
-{% endblock %}
+        <hr>
+      </div>
+      <!-- Pager -->
+      {% if post_len|int >= prev_limit|int %}
+      <div class="clearfix">
+        <button class="btn btn-primary float-right" id="load_more">Older Posts &rarr;</button>
+        <input type="hidden" name="prev_limit" id="prev_limit" value="{{ prev_limit }}">
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+      {% endblock %}

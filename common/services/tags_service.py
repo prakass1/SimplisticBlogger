@@ -20,3 +20,17 @@ def get_post_tags(tag_name):
             return False
 
     return posts
+
+def get_tags_count():
+    db_tags_all = tags_model.Tags.query.all()
+    tags_count = dict()
+    if db_tags_all:
+        for db_tag in db_tags_all:
+            if db_tag.tag not in tags_count:
+                tags_count[db_tag.tag] = 1
+            else:
+                tags_count[db_tag.tag] = tags_count[db_tag.tag] + 1
+        
+        # Sort by value of the dictionary and return
+        tags_count = dict(sorted(tags_count.items(), key=lambda x: x[1], reverse=True))
+    return tags_count

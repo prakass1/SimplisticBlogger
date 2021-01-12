@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint,render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for
 from common.services.posts_service import PostService
 from common.services import tags_service, comments_service
 from blog import resp
@@ -28,7 +28,7 @@ def blog():
             post) for post in posts_data]
         print(cache.get("more_posts"))
         return {"posts_resp": posts_serialized,
-        "posts_html_reponse": posts_blog_service.get_posts_html_resp(posts_serialized, len(posts_data), new_limit),
+                "posts_html_reponse": posts_blog_service.get_posts_html_resp(posts_serialized, len(posts_data), new_limit),
                 "prev_limit": new_limit,
                 "load_more": True,
                 "post_len": post_len}
@@ -37,21 +37,27 @@ def blog():
         post_len = 0
 
     return render_template("blog/index.html",
-                           posts_data=posts_data, resp=resp, prev_limit=prev_limit, post_len=post_len)
+                           posts_data=posts_data,
+                           tags_count=tags_service.get_tags_count(),
+                           resp=resp, prev_limit=prev_limit,
+                           post_len=post_len)
 
 
 @posts_bp.route("/post/<blog_title>")
 def get_post_title(blog_title):
     post_data = PostService().get_post_by_title(blog_title)
-    #load all comments under_moderation
-    comments = comments_service.CommentService.get_comments(post_db_obj=post_data[0], is_admin=False)
+    # load all comments under_moderation
+    comments = comments_service.CommentService.get_comments(
+        post_db_obj=post_data[0], is_admin=False)
     print(comments)
     if len(post_data) > 0:
-        data_resp = {"post_data": post_data[0], "tags": post_data[1], "comments": comments}
+        data_resp = {"post_data": post_data[0],
+                     "tags": post_data[1], "comments": comments}
     else:
         data_resp = {"post_data": False, "tags": False, "comments": comments}
-    
-    return render_template("blog/post.html", data_resp=data_resp, resp=resp, site_key = os.environ.get("RECAPTCHA_SITE_KEY"))
+
+    return render_template("blog/post.html", data_resp=data_resp, resp=resp, site_key=os.environ.get("RECAPTCHA_SITE_KEY"))
+
 
 @posts_bp.route("/post/category/<tag>")
 def get_post_tag(tag):
@@ -68,7 +74,7 @@ def get_post_tag(tag):
         posts_serialized = [posts_blog_service.serialize(
             post) for post in posts_data]
         return {"posts_resp": posts_serialized,
-        "posts_html_reponse": posts_blog_service.get_posts_html_resp(posts_serialized, len(posts_data), new_limit),
+                "posts_html_reponse": posts_blog_service.get_posts_html_resp(posts_serialized, len(posts_data), new_limit),
                 "prev_limit": new_limit,
                 "load_more": True,
                 "post_len": post_len}
@@ -76,4 +82,4 @@ def get_post_tag(tag):
         return redirect(url_for("posts.blog"))
 
     return render_template("blog/index.html",
-                           posts_data=posts_data, resp=resp, prev_limit=prev_limit, post_len=post_len)
+                           posts_data=posts_data,tags_count=tags_service.get_tags_count(), resp=resp, prev_limit=prev_limit, post_len=post_len)

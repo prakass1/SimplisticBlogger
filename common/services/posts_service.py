@@ -128,6 +128,7 @@ class PostService(object):
             post_set = [post, tags]
         return post_set
     
+    
     @classmethod
     def get_tags_for_post(cls, post):
         db_tags = tags_model.Tags.query.filter_by(posts=post).all()

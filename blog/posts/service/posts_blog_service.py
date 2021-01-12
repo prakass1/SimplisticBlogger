@@ -26,3 +26,4 @@ def get_posts_html_resp(serialized_obj, post_len, new_limit):
     #    str_concat += "<div class='clearfix'>" + "<button class='btn btn-primary float-right' id='load_more'>Older Posts &rarr;</button>" + \
     #        "<input type='hidden' name='prev_limit' id='prev_limit' value=" + "'" + str(limit) + "'" + "/>"
     #return str_concat
+

@@ -62,7 +62,7 @@
   }
   
   .flag {
-    position: relative;
+    position: static;
     display: inline;
     background: rgb(248,248,248);
     padding: 6px 10px;
@@ -269,7 +269,7 @@
   
   }
   
-  @media screen and (min-width: 400px ?? max-width: 660px) {
+  @media screen and (min-width: 400px) and (max-width: 660px) {
   
   .direction-l .desc,
   .direction-r .desc {
