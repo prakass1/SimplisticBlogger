@@ -3,6 +3,7 @@ astroid==2.4.2
 autoenv==1.0.0
 autopep8==1.5.4
 beautifulsoup4==4.9.3
+blinker==1.4
 bs4==0.0.1
 certifi==2020.12.5
 chardet==4.0.0
@@ -11,6 +12,7 @@ colorama==0.4.4
 Flask==1.1.2
 Flask-Caching==1.9.0
 Flask-Login==0.5.0
+Flask-Mail==0.9.1
 Flask-RESTful==0.3.8
 Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.14.3

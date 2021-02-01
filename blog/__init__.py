@@ -1,12 +1,13 @@
 from flask import Flask
-from common import db, cache
 from os import environ
 from dotenv import load_dotenv, find_dotenv
-from instance.config import app_config
 from flask_wtf.csrf import CSRFProtect
 from flask_mail import Mail
 
-load_dotenv(find_dotenv())
+load_dotenv(find_dotenv(raise_error_if_not_found=True))
+
+from instance.config import app_config
+from common import db, cache
 
 blog_header = environ.get("blog_header")
 blog_subheader = environ.get("blog_subheader")
@@ -56,10 +57,10 @@ def create_app(config_name):
         # Clear cache
         cache.clear()
 
-        # create ab
+        # create db
         db.create_all()
 
-        from common.models import users_model
+        # from common.models import users_model
 
         # Register blueprints
         app.register_blueprint(api_controller.api_bp)

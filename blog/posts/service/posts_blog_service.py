@@ -20,10 +20,9 @@ def get_posts_html_resp(serialized_obj, post_len, new_limit):
             "</h2></a>" + "<p class='post-meta'>Posted by " + "<a href='#'>" + \
             post_obj["author"] + "</a> on " + post_obj["posted_date"] + "</p></div><hr>"
     cache.set(str(post_len), str_concat, timeout=50)
-    return str_concat               
+    return str_concat
     #if post_len > limit:
     #    # Add load more content
     #    str_concat += "<div class='clearfix'>" + "<button class='btn btn-primary float-right' id='load_more'>Older Posts &rarr;</button>" + \
     #        "<input type='hidden' name='prev_limit' id='prev_limit' value=" + "'" + str(limit) + "'" + "/>"
     #return str_concat
-
