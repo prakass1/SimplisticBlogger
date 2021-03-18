@@ -1,5 +1,3 @@
-# SimplisticBlogger
-
 Subash  
 Prakash  
 Prakash  
