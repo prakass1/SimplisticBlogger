@@ -1,7 +1,7 @@
 from os import environ
 from common.models import comments_model
 from flask_mail import Message
-from blog_admin import mail
+from common import mail
 
 def check_reply(comment, post_obj):
     refer_names = list()

@@ -2,12 +2,10 @@ from flask import Flask
 from os import environ
 from dotenv import load_dotenv, find_dotenv
 from flask_wtf.csrf import CSRFProtect
-from flask_mail import Mail
-
-load_dotenv(find_dotenv(raise_error_if_not_found=True))
-
 from instance.config import app_config
-from common import db, cache
+from common import db, cache, mail
+
+load_dotenv(find_dotenv())
 
 blog_header = environ.get("blog_header")
 blog_subheader = environ.get("blog_subheader")
@@ -18,12 +16,11 @@ social_linkedin = "#" if environ.get(
 social_stack = "#" if environ.get(
     "social_stack") == "" else environ.get("social_stack")
 
-resp = resp = {"blog_header": blog_header, "blog_subheader": blog_subheader,
+resp = {"blog_header": blog_header, "blog_subheader": blog_subheader,
             "social_git": social_git, "social_linkedin": social_linkedin, "social_stack": social_stack}
 
 
 csrf_protect = CSRFProtect()
-mail = Mail()
 
 def create_app(config_name):
     # More on DB init here...

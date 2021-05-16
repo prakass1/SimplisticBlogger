@@ -5,6 +5,7 @@ COPY SimplisticBlogger/blog /app/blog
 COPY SimplisticBlogger/requirements.txt /app/blog
 COPY SimplisticBlogger/common /app/common
 COPY SimplisticBlogger/instance /app/instance
+COPY SimplisticBlogger/.env /app/blog
 WORKDIR /app/blog
 
 RUN pip install --upgrade pip
