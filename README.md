@@ -36,7 +36,7 @@ Important part of the setup is the centered with env_template, let us look that 
 | social_stack | Stackoverflow Link | String |
   
   
-Once, after creating the environments, rename .env_template to .env (This file will not be shared or push to github).  
+Once, after creating the environments, rename __.env_template__ to __.env__ (This file will not be shared or push to github).  
 
 ## Building and running Database:
 `docker-compose -f docker-compose-mysql.yml up`
