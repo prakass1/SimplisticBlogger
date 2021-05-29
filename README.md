@@ -1,4 +1,5 @@
-# Create your blogging website from groundup full configured notebook:.
+# Create your blogging website from groundup full configured :notebook:
+
 ## Motivation:  
 Everybody is motivated to create a blog website to write on their activities, or share something with their friend and family. But, developing something on own is time consuming and often people resort to the blogging sites which would read your content. Keeping this in mind, this web app is created with basic functionality to bring up docker containers on a purchased VM (aws, digitalocean, heroku etc..) and quickly launch with few commands.  
 
@@ -65,7 +66,7 @@ Once, after creating the environments, rename __.env_template__ to __.env__ (Thi
 ## Contact for any information/pull:  
 [Subash Prakash](https://github.com/prakass1)
 
-### Please give a :star:, if this has been useful to you in any ways and allowing to improve it.
+### Give a :star: if this project has been useful to you in any ways.
 
 ### Acknowledgements:
 1. [bootstrap clean blog](https://startbootstrap.com/theme/clean-blog)
