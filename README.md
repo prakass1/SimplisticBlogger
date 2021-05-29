@@ -60,6 +60,7 @@ Once, after creating the environments, rename __.env_template__ to __.env__ (Thi
 ## Extensions:  
 1. Currently the app uses Summernote editor for making a blog post, future look to integrate markdown editors.  
 2. Improving comments and replies. (The current implementation only considers a simple way to do stuff, this can be improved)  
+3. About me page can be attempted to be made dynamic.
 
 ## Contact for any informations/pull:  
 [Subash Prakash](https://github.com/prakass1)
