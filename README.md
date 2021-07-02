@@ -1,4 +1,5 @@
-# Create your blogging website from groundup full configured.
+# Create your blogging website from groundup full configured :notebook:
+
 ## Motivation:  
 Everybody is motivated to create a blog website to write on their activities, or share something with their friend and family. But, developing something on own is time consuming and often people resort to the blogging sites which would read your content. Keeping this in mind, this web app is created with basic functionality to bring up docker containers on a purchased VM (aws, digitalocean, heroku etc..) and quickly launch with few commands.  
 
@@ -60,9 +61,16 @@ Please follow the google recaptcha setup here: https://developers.google.com/rec
 1. Blog App:
 ![Blog App](assets/4.png)  
 
-## Extensions:  
+## Extensions :pencil2::  
 1. Currently the app uses Summernote editor for making a blog post, future look to integrate markdown editors.  
 2. Improving comments and replies. (The current implementation only considers a simple way to do stuff, this can be improved)  
+3. About me page can be attempted to be made dynamic.
 
-## Contact for any informations/pull:  
+## Contact for any information/pull:  
 [Subash Prakash](https://github.com/prakass1)
+
+### Give a :star: if this project has been useful to you in any ways.
+
+### Acknowledgements:
+1. [bootstrap clean blog](https://startbootstrap.com/theme/clean-blog)
+2. [Summernote](https://summernote.org/)
