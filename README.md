@@ -36,18 +36,21 @@ Important part of the setup is the centered with env_template, let us look that 
 | social_stack | Stackoverflow Link | String |
   
   
-Once, after creating the environments, rename .env_template to .env (This file will not be shared or push to github).  
+Once, after creating the environments, rename .env_template to .env (This file will not be shared or push to github).  Also, I have added and .env_example to fasten the process.
+
+## Recaptcha setup:  
+Please follow the google recaptcha setup here: https://developers.google.com/recaptcha/docs/v3 and add the RECAPTCHA_SITE_KEY and RECAPTCHA_SITE_SECRET. 
 
 ## Building and running Database:
-`docker-compose -f docker-compose-mysql.yml up`
+`docker-compose -f docker-compose-mysql.yml up -d`
 
 ## Building and running blog_admin:
 `docker-compose build blog-admin-app`
-`docker-compose blog-admin-app up`
+`docker-compose up -d blog-admin-app`
 
 ## Building and running blog_app:
 `docker-compose build blog-app`
-`docker-compose blog-app up`
+`docker-compose up -d blog-app`
 
 ## Some screenshots:  
 1. Blog Admin:  
