@@ -53,6 +53,18 @@ Please follow the google recaptcha setup here: https://developers.google.com/rec
 `docker-compose build blog-app`
 `docker-compose up -d blog-app`
 
+## Run locally:
+Running blog_admin locally:  
+1. First start the mysql database as above and point the same configurations in .env file.
+2. Then export the FLASK_APP from the root directory of the project which is SimplisticBlogger in this case as export `FLASK_APP=blog_admin/app`.
+3. To run, then use flask run --port 5000
+
+Running only blog locally:  
+1. First start the admin so that the author for the blog is created and create a post if you wish to.
+2. First start the mysql database as above and point the same configurations in .env file.
+3. Then export the FLASK_APP from the root directory of the project which is SimplisticBlogger in this case as export `FLASK_APP=blog/app`.
+4. To run, then use flask run --port 5001
+
 ## Some screenshots:  
 1. Blog Admin:  
 ![Admin login](assets/1.png)  
